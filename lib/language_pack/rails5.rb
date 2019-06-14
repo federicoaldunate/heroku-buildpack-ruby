@@ -1,9 +1,6 @@
 require 'securerandom'
 require "language_pack"
 require "language_pack/rails42"
-require "language_pack/helpers/node_cache"
-require "language_pack/helpers/yarn_cache"
-require "language_pack/helpers/webpacker_cache"
 
 class LanguagePack::Rails5 < LanguagePack::Rails42
   # @return [Boolean] true if it's a Rails 5.x app
