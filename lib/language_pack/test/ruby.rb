@@ -16,6 +16,7 @@ class LanguagePack::Ruby
         build_bundler(bundle_path: "vendor/bundle", default_bundle_without: "development")
         post_bundler
         install_binaries
+        run_assets_precompile_rake_task
       end
       super
     end
