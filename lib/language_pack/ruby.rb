@@ -102,7 +102,6 @@ WARNING
         install_bundler_in_app
         build_bundler("development:test")
         post_bundler
-        create_database_yml
         install_binaries
         run_assets_precompile_rake_task
       end
