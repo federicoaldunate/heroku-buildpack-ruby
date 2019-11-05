@@ -15,9 +15,7 @@ class LanguagePack::Ruby
         load_bundler_cache
         build_bundler(bundle_path: "vendor/bundle", default_bundle_without: "development")
         post_bundler
-        create_database_yml
         install_binaries
-        prepare_tests
       end
       super
     end
