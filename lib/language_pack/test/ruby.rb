@@ -15,6 +15,7 @@ class LanguagePack::Ruby
         build_bundler("development")
         post_bundler
         install_binaries
+        prepare_tests
         run_assets_precompile_rake_task
       end
       super
@@ -23,7 +24,7 @@ class LanguagePack::Ruby
 
   private
   def db_prepare_test_rake_tasks
-    ["db:schema:load", "db:migrate"].map {|name| rake.task(name) }
+    ["db:test:purge", "parallel:create"].map {|name| rake.task(name) }
   end
 
   def prepare_tests
