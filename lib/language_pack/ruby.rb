@@ -996,7 +996,7 @@ end
 adapter = uri.scheme
 adapter = "postgresql" if adapter == "postgres"
 
-database = (uri.path || "").split("/")[1] + <%= ENV['CI_NODE_TOTAL'] %>
+database = (uri.path || "").split("/")[1]
 
 username = uri.user
 password = uri.password
