@@ -15,7 +15,6 @@ class LanguagePack::Ruby
         load_bundler_cache
         build_bundler(bundle_path: "vendor/bundle", default_bundle_without: "development")
         post_bundler
-        create_database_yml
         install_binaries
         prepare_tests
         run_assets_precompile_rake_task
@@ -26,7 +25,7 @@ class LanguagePack::Ruby
 
   private
   def db_prepare_test_rake_tasks
-    ["db:test:purge", "parallel:create"].map {|name| rake.task(name) }
+    ["db:test:purge", "db:migrate"].map {|name| rake.task(name) }
   end
 
   def prepare_tests
