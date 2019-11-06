@@ -106,6 +106,7 @@ WARNING
         load_bundler_cache
         build_bundler(bundle_path: "vendor/bundle", default_bundle_without: "development:test")
         post_bundler
+        create_database_yml
         install_binaries
         run_assets_precompile_rake_task
       end
@@ -995,7 +996,7 @@ end
 adapter = uri.scheme
 adapter = "postgresql" if adapter == "postgres"
 
-database = (uri.path || "").split("/")[1]
+database = (uri.path || "").split("/")[1] + <%= ENV['CI_NODE_TOTAL'] %>
 
 username = uri.user
 password = uri.password
