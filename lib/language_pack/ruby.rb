@@ -18,6 +18,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   LIBYAML_PATH         = "libyaml-#{LIBYAML_VERSION}"
   RBX_BASE_URL         = "http://binaries.rubini.us/heroku"
   NODE_BP_PATH         = "vendor/node/bin"
+  ASSETS_CACHE_LIMIT = 52428800 # bytes
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -74,6 +75,14 @@ class LanguagePack::Ruby < LanguagePack::Base
         "console" => "bundle exec irb"
       }
     end
+  end
+
+  def public_assets_folder
+    "public/assets"
+  end
+
+  def default_assets_cache
+    "tmp/cache/assets"
   end
 
   def best_practice_warnings
@@ -1062,13 +1071,30 @@ params = CGI.parse(uri.query || "")
       precompile = rake.task("assets:precompile")
       return true unless precompile.is_defined?
 
-      topic "Precompiling assets"
+      topic("Preparing app for Rails asset pipeline")
+
+      @cache.load_without_overwrite public_assets_folder
+      @cache.load default_assets_cache
+
       precompile.invoke(env: rake_env)
       if precompile.success?
         puts "Asset precompilation completed (#{"%.2f" % precompile.time}s)"
+
+        puts "Cleaning assets"
+        rake.task("assets:clean").invoke(env: rake_env)
+
+        cleanup_assets_cache
+        @cache.store public_assets_folder
+        @cache.store default_assets_cache
       else
         precompile_fail(precompile.output)
       end
+    end
+  end
+
+  def cleanup_assets_cache
+    instrument "rails.cleanup_assets_cache" do
+      LanguagePack::Helpers::StaleFileCleaner.new(default_assets_cache).clean_over(ASSETS_CACHE_LIMIT)
     end
   end
 

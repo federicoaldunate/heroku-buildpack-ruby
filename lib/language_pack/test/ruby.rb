@@ -17,6 +17,7 @@ class LanguagePack::Ruby
         create_database_yml
         install_binaries
         prepare_tests
+        run_assets_precompile_rake_task
       end
       super
     end
