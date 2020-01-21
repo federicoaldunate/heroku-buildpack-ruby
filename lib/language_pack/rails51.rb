@@ -61,10 +61,9 @@ class LanguagePack::Rails51 < LanguagePack::Rails5
 
     def last_dyno?
       # means is the last dyno of the CI formation
-      puts "Node index: #{ENV['CI_NODE_INDEX']}"
-      puts "Node total: #{ENV['CI_NODE_TOTAL']}"
-      puts ENV
-      ENV['CI_NODE_INDEX'].to_i == (ENV['CI_NODE_TOTAL'].to_i - 1)
+      puts "Node index: #{env('CI_NODE_INDEX')}"
+      puts "Node total: #{env('CI_NODE_TOTAL')}"
+      env('CI_NODE_INDEX').to_i == env('CI_NODE_TOTAL').to_i - 1)
     end
 
     def load_asset_cache
