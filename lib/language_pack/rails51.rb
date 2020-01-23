@@ -51,7 +51,7 @@ class LanguagePack::Rails51 < LanguagePack::Rails5
             rake.task("assets:clean").invoke(env: rake_env)
 
             cleanup_assets_cache
-            store_asset_cache if last_dyno?
+            store_asset_cache if store_cache?
           else
             precompile_fail(precompile.output)
           end
@@ -59,11 +59,14 @@ class LanguagePack::Rails51 < LanguagePack::Rails5
       end
     end
 
-    def last_dyno?
-      # means is the last dyno of the CI formation
-      puts "Node index: #{env('CI_NODE_INDEX')}"
-      puts "Node total: #{env('CI_NODE_TOTAL')}"
-      env('CI_NODE_INDEX').to_i == (env('CI_NODE_TOTAL').to_i - 1)
+    def store_cache?
+      # to be replaced by test/rails51.rb
+      true
+    end
+
+    def load_cache?
+      # to be replaced by test/rails51.rb
+      true
     end
 
     def load_asset_cache
