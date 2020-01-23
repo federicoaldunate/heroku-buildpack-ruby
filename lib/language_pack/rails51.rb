@@ -60,14 +60,10 @@ class LanguagePack::Rails51 < LanguagePack::Rails5
     end
 
     def store_cache?
-      # to be replaced by test/rails51.rb
-      true
+      # the last dyno of the formation in heroku ci
+      env('CI_NODE_INDEX').to_i == (env('CI_NODE_TOTAL').to_i - 1)
     end
 
-    def load_cache?
-      # to be replaced by test/rails51.rb
-      true
-    end
 
     def load_asset_cache
       puts "Loading asset cache"
