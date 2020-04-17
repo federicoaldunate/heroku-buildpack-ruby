@@ -68,8 +68,6 @@ class LanguagePack::Rails51 < LanguagePack::Rails5
     def load_asset_cache
       puts "Loading asset cache"
       start = Time.now
-      @cache.load_without_overwrite public_assets_folder
-      @cache.load default_assets_cache
 
       paths = (self.class::ASSET_PATHS + self.class::ASSET_CACHE_PATHS)
       paths.each { |path| @cache.load path }
@@ -79,8 +77,6 @@ class LanguagePack::Rails51 < LanguagePack::Rails5
     def store_asset_cache
       puts "Storing asset cache"
       start = Time.now
-      @cache.store public_assets_folder
-      @cache.store default_assets_cache
 
       paths = (self.class::ASSET_PATHS + self.class::ASSET_CACHE_PATHS)
       paths.each { |path| @cache.store path }
