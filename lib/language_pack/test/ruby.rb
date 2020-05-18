@@ -26,7 +26,7 @@ class LanguagePack::Ruby
 
   private
   def db_prepare_test_rake_tasks
-    ["db:test:purge"].map {|name| rake.task(name) }
+    ["db:test:purge", "db:create", "db:structure:dump"].map {|name| rake.task(name) }
   end
 
   def prepare_tests
