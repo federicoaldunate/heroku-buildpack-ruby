@@ -4,13 +4,14 @@ require 'language_pack/rails5'
 
 class LanguagePack::Rails51 < LanguagePack::Rails5
   ASSET_PATHS = %w[
-    public/packs
+    public/packs-test
     ~/.yarn-cache
     ~/.cache/yarn
   ]
 
   ASSET_CACHE_PATHS = %w[
     node_modules
+    tmp/cache/webpacker
   ]
 
   # @return [Boolean] true if it's a Rails 5.1.x app
