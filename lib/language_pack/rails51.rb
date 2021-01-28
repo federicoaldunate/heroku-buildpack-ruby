@@ -4,6 +4,7 @@ require 'language_pack/rails5'
 
 class LanguagePack::Rails51 < LanguagePack::Rails5
   ASSET_PATHS = %w[
+    public/packs
     public/packs-test
     ~/.yarn-cache
     ~/.cache/yarn
